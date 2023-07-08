@@ -1,7 +1,5 @@
 # chat-project
 
-# chat-project
-
 ## set up django database
 ### add file config.py to django_chat/django_chat
 
