@@ -6,6 +6,9 @@ input{
       border: none;
       font-family: 'Mitr';
 }
+input:focus{
+    outline: none;
+}
 
 .homeLogo{
     width: 20px;
@@ -13,4 +16,17 @@ input{
     position: fixed;
     top:5px;
     left: 5px;
+}
+
+.errorInput{
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    box-shadow: 0px 0px 8px red
+}
+
+button:disabled{
+    background-color: gray;
+}
+button:disabled:hover{
+    background-color: gray;
+    transform: scale(1);
 }

@@ -29,6 +29,7 @@ button{
     margin: 21px 5px 0 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 100px;
+    color: white;
 }
 
 .loginButton{
@@ -50,12 +51,12 @@ button:hover{
 }
 
 .titleChat{
-    color: rgba(106,10,117,1);
+    /* color: rgba(106,10,117,1); */
+    color: rgba(0,212,255,1);
     font-size: 48px;
     text-shadow: 2px 2px 4px #000000;
 }
 
 .buttonText{
-    color: white;
     text-decoration: none;
 }

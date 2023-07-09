@@ -8,12 +8,16 @@ const Home = () => {
             <p className="about">Welcome to my chat application.</p>
             <p className="about">This web app is developed by react.</p>
             <div>
-                <button className="registerButton">
-                    <a href="/register" className="buttonText">register</a>
-                </button>
-                <button className="loginButton">
-                    <a href="/login" className="buttonText">log in</a>
-                </button>
+            <a href="/register" className="buttonText">
+                    <button className="registerButton">
+                        register
+                    </button>
+                </a>
+                <a href="/login" className="buttonText">
+                    <button className="loginButton">
+                        log in
+                    </button>
+                </a>
             </div>
         </div>
     );
