@@ -46,7 +46,7 @@ def register(request):
     else:
         oldUser = User.objects.filter(username=username).first()
         if oldUser:
-            response['error'].append('duplicate user')
+            response['error'].append('duplicate username')
             return Response(response, status=400)
         oldUser = User.objects.filter(email=email).first()
         if oldUser:
