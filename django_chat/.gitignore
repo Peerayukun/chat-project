@@ -1,1 +1,5 @@
 /django_chat/config.py
+
+*.pyo
+*.pyc
+**/__pycache__/
