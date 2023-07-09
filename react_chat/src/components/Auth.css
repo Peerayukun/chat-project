@@ -1,0 +1,16 @@
+input{
+    padding: 10px;
+      margin-bottom: 10px;
+      width: 200px;
+      border-radius: 3px;
+      border: none;
+      font-family: 'Mitr';
+}
+
+.homeLogo{
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    top:5px;
+    left: 5px;
+}
