@@ -2,6 +2,8 @@ import './Home.css'
 import './Auth.css'
 import homeLogo from '../assets/images/icons8-home-100.png'
 import { useState } from 'react';
+import { API_BASE_URL } from '../config';
+import axios from 'axios'
 const Register = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -14,7 +16,7 @@ const Register = () => {
         setMatchPassword(confirmPassword === password)
         setConfirm(confirmPassword)
     }
-    function submitRegisterPayload(){
+    async function submitRegisterPayload(){
         const payload = {
             'username':username,
             'email':email,
@@ -22,7 +24,13 @@ const Register = () => {
             'lastname':lastname,
             'password':password
         }
-        console.log(payload)
+        const registerResponse = await axios.post(`${API_BASE_URL}/auth/register`,payload)
+        if(registerResponse.status === 200){
+            console.log('ok')
+        }
+        else{
+            console.log('not ok')
+        }
     }
     return (
         <div className="mainFrame">
