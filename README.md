@@ -10,3 +10,10 @@ DB_PASSWORD = ""
 DB_HOST = "localhost"
 DB_PORT = 3306
 ```
+
+## set up react
+### add file config.js to react_chat/src
+
+```
+export const API_BASE_URL = ""
+```
