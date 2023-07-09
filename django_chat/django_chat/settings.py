@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from .config import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,10 @@ SECRET_KEY = 'django-insecure-kb3ii2g^ed7gu)p&cj%vg6ohjk%+-ou2j9qs)v1_wnm8@*uxp@
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+CSRF_TRUSTED_ORIGINS = [
+    FRONTEND_BASE_URL
+]
 
 
 # Application definition
@@ -76,7 +81,6 @@ WSGI_APPLICATION = 'django_chat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-from .config import *
 
 DATABASES = {
     'default': {
