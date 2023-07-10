@@ -29,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_HTTPONLY = True
 CORS_ORIGIN_WHITELIST = [
   FRONTEND_BASE_URL
 ]
@@ -45,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'rest_framework',
-    'rest_framework.authtoken',
     'corsheaders',
 ]
 
