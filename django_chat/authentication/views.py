@@ -1,13 +1,11 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.models import User
-from rest_framework.authtoken.models import Token
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import SessionAuthentication
 import re
 from rest_framework.response import Response
-from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
 @api_view(['POST'])
@@ -19,8 +17,10 @@ def login(request):
     if user is None:
         user = authenticate(request, email=usernameOrEmail, password=password)
     if user is not None:
-        token, _ = Token.objects.get_or_create(user=user)
-        return JsonResponse({'token': token.key})
+        django_login(request,user)
+        response = HttpResponse('log in success')
+        response.set_cookie(key='sessionid', value=request.session.session_key, httponly=True)
+        return response
     else:
         return HttpResponse('Invalid credentials', status=401)
     
@@ -58,6 +58,6 @@ def register(request):
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([SessionAuthentication])
 def test(request):
-    return HttpResponse('test pass '+str(request.user))
+    return HttpResponse()
