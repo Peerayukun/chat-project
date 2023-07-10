@@ -2,13 +2,21 @@ import './Home.css'
 import './Auth.css'
 import homeLogo from '../assets/images/icons8-home-100.png'
 import { useState } from 'react';
+import axios from 'axios';
+import { API_BASE_URL } from '../config';
 const Login = () => {
     const [usernameOrEmail, setUsernameOrEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    function submitLoginPayload(){
-        const payload = {'usernameOrEmail':usernameOrEmail, 'password':password}
-        console.log(payload)
+    async function submitLoginPayload(){
+        const payload = {'usernameOrEmail':usernameOrEmail, 'password':password }
+        try{
+            await axios.post(`${API_BASE_URL}/auth/login`,payload,{ withCredentials: true })
+            window.location.replace('/chat')
+        }
+        catch(error){
+            alert('log in fail')
+        }
     }
     return (
         <div className="mainFrame">
