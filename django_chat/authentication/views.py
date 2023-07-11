@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
@@ -60,4 +60,11 @@ def register(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication])
 def test(request):
+    return HttpResponse()
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+def logout(request):
+    django_logout(request)
     return HttpResponse()
