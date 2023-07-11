@@ -9,6 +9,8 @@ DB_USER = ""
 DB_PASSWORD = ""
 DB_HOST = "localhost"
 DB_PORT = 3306
+
+FRONTEND_BASE_URL = ''
 ```
 
 ## set up react
