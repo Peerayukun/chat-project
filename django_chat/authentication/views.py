@@ -58,7 +58,10 @@ def register(request):
     
 @api_view(['GET'])
 def user(request):
-    return JsonResponse({'isAuthenticated':request.user.is_authenticated, 'user':{'firstname':request.user.first_name, 'lastname':request.user.last_name}})
+    if request.user.is_authenticated:
+        return JsonResponse({'isAuthenticated':request.user.is_authenticated, 'user':{'firstname':request.user.first_name, 'lastname':request.user.last_name}})
+    else:
+        return JsonResponse({'isAuthenticated':False})
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
