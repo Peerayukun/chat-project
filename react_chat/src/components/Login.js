@@ -1,10 +1,20 @@
 import './Home.css'
 import './Auth.css'
 import homeLogo from '../assets/images/icons8-home-100.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 const Login = () => {
+    const [isCheckingAuth,setIsCheckingAuth] = useState(true)
+    useEffect(()=>{
+        try{
+            axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
+            window.location.replace('/chat')
+        }
+        catch{
+            setIsCheckingAuth(false)
+        }
+    },[])
     const [usernameOrEmail, setUsernameOrEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -18,7 +28,7 @@ const Login = () => {
             alert('log in fail')
         }
     }
-    return (
+    return (isCheckingAuth?<p>loading...</p>:
         <div className="mainFrame">
             <a href='/'><img src={homeLogo} className='homeLogo' alt=''></img></a>
             <h1 className="titleChat">Log in</h1>

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../config";
-const Chat =()=> {
+import {Sidebar} from "./chat_components/Sidebar"
+import {Rooms} from "./chat_components/Rooms"
+import {Chat} from "./chat_components/Chat"
+
+const Landing =()=> {
     const [isAuth,setIsAuth] = useState(false)
     useEffect(()=>{
         try{
@@ -12,7 +16,13 @@ const Chat =()=> {
             window.location.replace('/login')
         }
     },[])
-    return (isAuth?<h1>Chat</h1>:<p>loading...</p>)
+    return (isAuth?
+    <>
+        <Sidebar />
+        <Rooms />
+        <Chat />
+    </>
+    :<p>loading...</p>)
 }
 
-export default Chat;
+export default Landing;
