@@ -10,13 +10,18 @@ const Landing =()=> {
     useEffect(()=>{
         async function checkAuth(){
             try{
-                await axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
-                setIsAuth(true)
+                const response = await axios.get(`${API_BASE_URL}/auth/user`,{withCredentials: true})
+                if(response.data.isAuthenticated){
+                    setIsAuth(true)
+                    console.log(response.data.user)
+                }
+                else{
+                    window.location.replace('/login')
+                }
             }
             catch{
-                window.location.replace('/chat')
+                window.location.replace('/login')
             }
-       
         }
         checkAuth()
     },[])

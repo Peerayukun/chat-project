@@ -8,9 +8,14 @@ const Login = () => {
     const [isCheckingAuth,setIsCheckingAuth] = useState(true)
     useEffect(()=>{
         async function checkAuth(){
-            try{
-                await axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
-                window.location.replace('/chat')
+           try{
+                const response = await axios.get(`${API_BASE_URL}/auth/user`,{withCredentials: true})
+                if(response.data.isAuthenticated){
+                    window.location.replace('/chat')
+                }
+                else{
+                    setIsCheckingAuth(false)
+                }
             }
             catch{
                 setIsCheckingAuth(false)
