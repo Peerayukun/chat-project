@@ -8,13 +8,17 @@ import {Chat} from "./chat_components/Chat"
 const Landing =()=> {
     const [isAuth,setIsAuth] = useState(false)
     useEffect(()=>{
-        try{
-            axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
-            setIsAuth(true)
+        async function checkAuth(){
+            try{
+                await axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
+                setIsAuth(true)
+            }
+            catch{
+                window.location.replace('/chat')
+            }
+       
         }
-        catch{
-            window.location.replace('/login')
-        }
+        checkAuth()
     },[])
     return (isAuth?
     <>
@@ -22,7 +26,7 @@ const Landing =()=> {
         <Rooms />
         <Chat />
     </>
-    :<p>loading...</p>)
+    :<div class="loader"></div>)
 }
 
 export default Landing;

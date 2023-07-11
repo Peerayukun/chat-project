@@ -7,13 +7,16 @@ import { API_BASE_URL } from '../config';
 const Login = () => {
     const [isCheckingAuth,setIsCheckingAuth] = useState(true)
     useEffect(()=>{
-        try{
-            axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
-            window.location.replace('/chat')
+        async function checkAuth(){
+            try{
+                await axios.get(`${API_BASE_URL}/auth/test`,{withCredentials: true})
+                window.location.replace('/chat')
+            }
+            catch{
+                setIsCheckingAuth(false)
+            }
         }
-        catch{
-            setIsCheckingAuth(false)
-        }
+        checkAuth()
     },[])
     const [usernameOrEmail, setUsernameOrEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -28,8 +31,10 @@ const Login = () => {
             alert('log in fail')
         }
     }
-    return (isCheckingAuth?<p>loading...</p>:
+    return (
         <div className="mainFrame">
+            {isCheckingAuth?<div class="loader"></div>:
+            <>
             <a href='/'><img src={homeLogo} className='homeLogo' alt=''></img></a>
             <h1 className="titleChat">Log in</h1>
             <input placeholder='username or email' onChange={(event)=>{setUsernameOrEmail(event.target.value)}}></input>
@@ -44,6 +49,8 @@ const Login = () => {
                     log in
                 </button>
             </div>
+            </>
+            }
         </div>
     );
   };
