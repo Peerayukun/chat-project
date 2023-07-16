@@ -38,19 +38,19 @@ const Login = () => {
     }
     return (
         <div className="mainFrame">
-            {isCheckingAuth?<div class="loader"></div>:
+            {isCheckingAuth?<div className="loader"></div>:
             <>
             <a href='/'><img src={homeLogo} className='homeLogo' alt=''></img></a>
             <h1 className="titleChat">Log in</h1>
             <input placeholder='username or email' onChange={(event)=>{setUsernameOrEmail(event.target.value)}}></input>
-            <input placeholder='password' type='password' onChange={(event)=>{setPassword(event.target.value)}}></input>
+            <input placeholder='password' type='password' onKeyUp={(event)=>{event.key === 'Enter' ? submitLoginPayload() : setPassword(event.target.value)}}></input>
             <div>
                 <a href="/register" className="buttonText">
-                    <button className="registerButton">
+                    <button className="authButton registerButton">
                         register
                     </button>
                 </a>
-                <button className="loginButton"  onClick={()=>{submitLoginPayload()}}>
+                <button className="authButton loginButton"  onClick={()=>{submitLoginPayload()}}>
                     log in
                 </button>
             </div>

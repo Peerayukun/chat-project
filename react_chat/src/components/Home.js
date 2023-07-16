@@ -9,12 +9,12 @@ const Home = () => {
             <p className="about">This web app is developed by react.</p>
             <div>
             <a href="/register" className="buttonText">
-                    <button className="registerButton">
+                    <button className="authButton registerButton">
                         register
                     </button>
                 </a>
                 <a href="/login" className="buttonText">
-                    <button className="loginButton">
+                    <button className="authButton loginButton">
                         log in
                     </button>
                 </a>

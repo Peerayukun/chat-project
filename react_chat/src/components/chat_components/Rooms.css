@@ -1,0 +1,57 @@
+.roomsFrame{
+    width: 40%;
+    height: 100%;
+}
+
+.roomsContainer{
+    background-color: white;
+    border-radius: 35px;
+    width: calc(100% - 40px);
+    height: calc(100% - 10px);
+    padding:10px 20px 0 20px;
+}
+
+.roomsNumberManager{
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 35px;
+    margin: 0 5px 0 5px;
+    border: solid;
+    border-color: #c7aef7;
+    cursor: pointer;
+}
+
+.plus{
+    color: #c7aef7;
+    background-color: white;
+}
+
+.minus{
+    color: white;
+    background-color: #c7aef7 ;
+}
+
+.cardContainer{
+    max-height:calc((100% - 194px) / 2);
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+}
+
+.roomPic{
+    height:35px; 
+    width: 35px; 
+    border-radius:35px; 
+    background-color:#b0e0e6; 
+    margin-right:20px
+}

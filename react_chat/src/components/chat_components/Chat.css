@@ -1,0 +1,115 @@
+.chatFrame{
+    width: 40%;
+    height: 100%;
+}
+
+.chatContainer{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 35px;
+}
+
+.chatHeader{
+    height: 10%;
+    border-bottom: 3px solid #c7aef7;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.chatBody{
+    height: 70%;
+    border-bottom: 3px solid #b0e0e6;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px 10px 5px 10px;
+}
+
+
+.chatRoomPic{
+    height:35px; 
+    width: 35px; 
+    border-radius:35px; 
+    background-color:#c7aef7; 
+    margin-right:20px;
+}
+
+.chatClose{
+    width: 35px;
+    height: 31px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 35px;
+    margin: 0 5px 0 5px;
+    border: solid;
+    border-color: #c7aef7;
+    cursor: pointer;
+    padding-bottom: 4px;
+    color: #c7aef7;
+    margin-left: auto;
+}
+
+.receiver{
+    display: flex;
+    margin: 5px 0 5px 0;
+}
+
+.messagerPic{
+    height:35px; 
+    width: 35px; 
+    border-radius:35px; 
+    background-color:white; 
+}
+
+.messageBubble{
+    max-width: 40%;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.messageSendTime{
+    font-size:9px;
+    text-align: center;
+    color: gray;
+    align-self: flex-end;
+}
+
+.sender{
+    display: flex;
+    margin: 5px 0 5px 0;
+    flex-direction: row-reverse;
+}
+
+.chatFooter{
+    display: flex;
+    padding: 10px 10px 0 10px;
+    height: calc(20% - 25px);
+}
+
+.inputMessage{
+    width: calc(100% - 55px);
+    height: calc(100% - 20px);
+    resize: none;
+    background-color: white;
+    border-radius: 15px;
+    border: solid #b0e0e6;
+    outline: none;
+    font-size: 12px;
+    font-family: 'Mitr';
+}
+
+.sendIconOut{
+    width: 0;
+	height: 0;
+	border-top: 15px solid transparent;
+	border-left: 30px solid #b0e0e6;
+	border-bottom: 15px solid transparent;
+    margin-left: 10px;
+    transform: rotate(-45deg);
+    cursor: pointer;
+}
