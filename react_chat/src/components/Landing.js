@@ -26,12 +26,12 @@ const Landing =()=> {
         checkAuth()
     },[])
     return (isAuth?
-    <>
+    <div style={{background: 'linear-gradient(to bottom, #c7aef7, #b0e0e6)',width: '100%',height: '100%', display:'flex'}}>
         <Sidebar />
         <Rooms />
         <Chat />
-    </>
-    :<div class="loader"></div>)
+    </div>
+    :<div className="loader"></div>)
 }
 
 export default Landing;

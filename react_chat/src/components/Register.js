@@ -77,7 +77,7 @@ const Register = () => {
     }
     return (
         <div className="mainFrame">
-            {isCheckingAuth?<div class="loader"></div>:
+            {isCheckingAuth?<div className="loader"></div>:
             <>
             <a href='/'><img src={homeLogo} className='homeLogo' alt=''></img></a>
             <h1 className="titleChat">Register</h1>
@@ -96,11 +96,11 @@ const Register = () => {
             onChange={(event)=>{handlePassword(event.target.value)}} 
             value={confirm}></input>
             <div>
-                <button className="registerButton" onClick={()=>{submitRegisterPayload()}} disabled={!matchPassword}>
+                <button className="authButton registerButton" onClick={()=>{submitRegisterPayload()}} disabled={!matchPassword}>
                     register
                 </button>
                 <a href="/login" className="buttonText">
-                    <button className="loginButton">
+                    <button className="authButton loginButton">
                         log in
                     </button>
                 </a>
