@@ -31,10 +31,10 @@ def register(request):
     firstname = request.data.get('firstname')
     lastname = request.data.get('lastname')
     password = request.data.get('password')
-    alpahnumeric = r'^[a-zA-Z0-9]+$'
+    alphanumeric = r'^[a-zA-Z0-9]+$'
     emailPattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     response = {"error":[]}
-    if not username or username.isspace() or not re.match(alpahnumeric,username):
+    if not username or username.isspace() or not re.match(alphanumeric,username):
         response['error'].append('username')
     if not email or email.isspace() or not re.match(emailPattern,email):
         response['error'].append('email')
