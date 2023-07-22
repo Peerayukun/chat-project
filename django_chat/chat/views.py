@@ -17,7 +17,7 @@ def create_room(request):
         ChatRoomMember.objects.create(room=room, user=request.user)
     except:
         return HttpResponse('fail create room', status = 400)
-    return HttpResponse()
+    return HttpResponse(room.id)
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -39,12 +39,12 @@ def join_room(request):
     member = ChatRoomMember.objects.filter(room__id=room_id,user=request.user).first()
     if member and member.status == "joined":
         return HttpResponse()
-    elif member.status == "left":
+    elif member and member.status == "left":
         member.status = "joined"
         member.save()
         return HttpResponse()
     else:
-        room = ChatRoom.objects.filter(id=room_id).filter()
+        room = ChatRoom.objects.filter(id=room_id).first()
         if room:
             ChatRoomMember.objects.create(room=room, user=request.user)
             return HttpResponse()
@@ -76,7 +76,7 @@ def rooms(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication])
 def room_messages(request,room_id):
-    member = ChatRoomMember.objects.filter(room__id=room_id,user=request.user).first()
+    member = ChatRoomMember.objects.filter(room__id=room_id,user=request.user,status="joined").first()
     if member:
         message_objs = ChatMessage.objects.filter(send_from__room__id=room_id).order_by('created')
         result = []
@@ -109,7 +109,7 @@ def room_info(request,room_id):
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication])
 def room_member(request,room_id):
-    member = ChatRoomMember.objects.filter(room__id=room_id,user=request.user).first()
+    member = ChatRoomMember.objects.filter(room__id=room_id,user=request.user,status="joined").first()
     if member:
         member_objs = ChatRoomMember.objects.filter(room__id=room_id)
         result = []
