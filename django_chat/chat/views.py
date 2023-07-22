@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 import json
 from .models import *
+from ..django_chat.config import DB_NAME
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -65,9 +66,9 @@ def leave_room(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([SessionAuthentication])
 def rooms(request):
-    result = [(i.id, i.name, i.type) for i in ChatRoom.objects.raw("""select id, name, case when room_id is null then 'public' else 'joined' end as type from django_chat.chat_chatroom t1 left join 
-                                                                (select distinct(room_id) from django_chat.chat_chatroommember where user_id={0} and status='joined') t2 
-                                                                on t1.id = t2.room_id""".format(request.user.id))
+    result = [(i.id, i.name, i.type) for i in ChatRoom.objects.raw("""select id, name, case when room_id is null then 'public' else 'joined' end as type from {0}.chat_chatroom t1 left join 
+                                                                (select distinct(room_id) from {1}.chat_chatroommember where user_id={2} and status='joined') t2 
+                                                                on t1.id = t2.room_id""".format(DB_NAME,DB_NAME,request.user.id))
     ]
     return HttpResponse(json.dumps(result))
 
