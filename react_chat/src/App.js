@@ -11,7 +11,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path='register' element={<Register />} />
           <Route path='login' element={<Login />} />
-          <Route path='chat' element={<Landing />} />
+          <Route exact path='chat' element={<Landing />} />
+          <Route path='chat/:roomId' element={<Landing />} />
       </Routes>
     </BrowserRouter>
   );

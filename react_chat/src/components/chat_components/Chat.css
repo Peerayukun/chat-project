@@ -53,8 +53,11 @@
 }
 
 .receiver{
-    display: flex;
     margin: 5px 0 5px 0;
+}
+
+.receiverFlex{
+    display: flex;
 }
 
 .messagerPic{
@@ -72,7 +75,7 @@
     justify-content: center;
 }
 
-.messageSendTime{
+.seidTextMessage{
     font-size:9px;
     text-align: center;
     color: gray;
@@ -80,8 +83,11 @@
 }
 
 .sender{
-    display: flex;
     margin: 5px 0 5px 0;
+}
+
+.senderFlex{
+    display: flex;
     flex-direction: row-reverse;
 }
 
