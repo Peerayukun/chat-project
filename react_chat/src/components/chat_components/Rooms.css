@@ -56,3 +56,17 @@
     background-color:#b0e0e6; 
     margin-right:20px
 }
+
+.cardDel{
+    height: calc(100% - 10px);
+    width: 30px;
+    background-color: red;
+    margin-left: auto;
+    border-radius: 0 20px 20px 0;
+    font-size: 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
