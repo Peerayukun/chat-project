@@ -110,12 +110,12 @@
 }
 
 .sendIconOut{
-    width: 0;
-	height: 0;
-	border-top: 15px solid transparent;
-	border-left: 30px solid #b0e0e6;
-	border-bottom: 15px solid transparent;
-    margin-left: 10px;
-    transform: rotate(-45deg);
+    color: #b0e0e6;
     cursor: pointer;
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }

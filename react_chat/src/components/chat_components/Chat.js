@@ -3,33 +3,55 @@ import defaulRoomPic from "../../assets/images/icons8-chat-48.png"
 import { Receiver } from './Receiver'
 import { Sennder } from './Sender'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { API_BASE_URL } from '../../config'
+import { CsrftokenContext } from '../Landing'
 
-export const Chat =({roomId})=>{
+export const Chat =({roomId, roomInfo, setRoomInfo, setIsPopupJoinRoom})=>{
+    const getCsrftoken = useContext(CsrftokenContext)
     const [messages,setMessages] = useState([])
-    const [roomInfo,setRoomInfo] = useState({})
+    const [members,setMembers] = useState([])
     useEffect(()=>{
         async function initChatRoom(){
+            let messagesData = []
+            let membersData = []
             try{
-                const response = await axios.get(`${API_BASE_URL}/chat/room_info/${roomId}`,{withCredentials: true})
-                setRoomInfo(response.data)
+                const infoResponse = await axios.get(`${API_BASE_URL}/chat/room_info/${roomId}`,{withCredentials: true})
+                setRoomInfo(infoResponse.data)
+                const messageResponse = await axios.get(`${API_BASE_URL}/chat/room_messages/${roomId}`,{withCredentials: true})
+                messagesData = messageResponse.data
+                const memberResponse = await axios.get(`${API_BASE_URL}/chat/room_member/${roomId}`,{withCredentials: true})
+                membersData = memberResponse.data
             }
             catch(error){
-                window.location.replace('/chat')
+                if(error.response.data === 'no room'){
+                    window.location.replace('/chat')
+                }
+                else if(error.response.data === 'not a member'){
+                    setIsPopupJoinRoom(true)
+                }
+                else{
+                    setIsPopupJoinRoom(false)
+                }
             }
-            let messagesRes = []
-            try{
-                const response = await axios.get(`${API_BASE_URL}/chat/room_messages/${roomId}`,{withCredentials: true})
-                messagesRes = response.data
-            }
-            catch(error){
-                console.log(error)
-            }
-            setMessages(messagesRes)
+            setMessages(messagesData)
+            setMembers(membersData)
         }
         initChatRoom()
     },[])
+    async function leaveRoom(){
+        try{
+            await axios.post(`${API_BASE_URL}/chat/leave_room`,{roomId:roomId}
+            ,{
+                withCredentials:true,
+                headers:{'X-CSRFToken':getCsrftoken()}
+            })
+            window.location.replace(`${window.location.origin}/chat`)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
     return (
     <div className='chatFrame'>
         <div className='chatContainer'>
@@ -38,7 +60,11 @@ export const Chat =({roomId})=>{
                     <img src={defaulRoomPic} alt='' style={{widows:'35px', height:'35px'}}></img>
                 </div>
                 <div>{roomInfo.name}</div>
-                <div className='chatClose'>x</div>
+                <select style={{fontFamily:"Mitr", marginLeft:"10px"}}>
+                    <option>member</option>
+                    {members.map((element,index)=><option disabled={true} key={`member ${index}`}>{element.name}</option>)}
+                </select>
+                <div className='chatClose' title='leave' onClick={leaveRoom}>&#8687;</div>
             </div> 
             <div className='chatBody'>
                 {messages.map(element=>{
@@ -53,6 +79,7 @@ export const Chat =({roomId})=>{
             <div className='chatFooter'>
                 <textarea className='inputMessage' placeholder='Type it here...'></textarea>
                 <div className='sendIconOut'>
+                &#10148;
                 </div>
             </div>
         </div>
