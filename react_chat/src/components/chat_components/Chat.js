@@ -8,18 +8,25 @@ import { API_BASE_URL } from '../../config'
 
 export const Chat =({roomId})=>{
     const [messages,setMessages] = useState([])
+    const [roomInfo,setRoomInfo] = useState({})
     useEffect(()=>{
         async function initChatRoom(){
-            let messages_res = []
+            try{
+                const response = await axios.get(`${API_BASE_URL}/chat/room_info/${roomId}`,{withCredentials: true})
+                setRoomInfo(response.data)
+            }
+            catch(error){
+                window.location.replace('/chat')
+            }
+            let messagesRes = []
             try{
                 const response = await axios.get(`${API_BASE_URL}/chat/room_messages/${roomId}`,{withCredentials: true})
-                messages_res = response.data
+                messagesRes = response.data
             }
             catch(error){
                 console.log(error)
-                // window.location.replace('/')
             }
-            setMessages(messages_res)
+            setMessages(messagesRes)
         }
         initChatRoom()
     },[])
@@ -30,7 +37,7 @@ export const Chat =({roomId})=>{
                 <div className="chatRoomPic">
                     <img src={defaulRoomPic} alt='' style={{widows:'35px', height:'35px'}}></img>
                 </div>
-                <div>room name</div>
+                <div>{roomInfo.name}</div>
                 <div className='chatClose'>x</div>
             </div> 
             <div className='chatBody'>
