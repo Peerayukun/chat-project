@@ -27,7 +27,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         room_id = text_data_json["roomId"]
-
+        this_member = await self.this_member(room_id)
+        if not this_member:
+            return
+        saved_message = await self.save_message(message,this_member)
         all_members = await self.query_user_in_room(room_id)
         for member in all_members:
             # Send message to room group
@@ -38,7 +41,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "room_id":room_id, 
                     "sender_name":"{0} {1}".format(self.user.first_name,self.user.last_name), 
                     "self":member.id==self.user.id,
-                    "send_time": time.time()*1000
+                    "send_time": saved_message.created.timestamp()*1000
                 }
             )
 
@@ -47,6 +50,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps(event))
+
+    @sync_to_async
+    def this_member(self,room_id):
+        member = ChatRoomMember.objects.filter(room__id=room_id,user=self.user,status="joined").first()
+        return member
+    
+    @sync_to_async
+    def save_message(self,message,member):
+        new_message = ChatMessage.objects.create(send_from=member,message=message)
+        return new_message
 
     @sync_to_async
     def query_user_in_room(self,room_id):
