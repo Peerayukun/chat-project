@@ -5,12 +5,13 @@ import { Sennder } from './Sender'
 import axios from 'axios'
 import { useEffect, useState, useContext } from 'react'
 import { API_BASE_URL } from '../../config'
-import { CsrftokenContext } from '../Landing'
+import { CsrftokenContext, SocketContext } from '../Landing'
 
-export const Chat =({roomId, roomInfo, setRoomInfo, setIsPopupJoinRoom})=>{
+export const Chat =({roomId, roomInfo, setRoomInfo, setIsPopupJoinRoom, messages, setMessages})=>{
     const getCsrftoken = useContext(CsrftokenContext)
-    const [messages,setMessages] = useState([])
+    const socket = useContext(SocketContext)
     const [members,setMembers] = useState([])
+    const [inputMessage,setInputMessage] = useState('')
     useEffect(()=>{
         async function initChatRoom(){
             let messagesData = []
@@ -52,6 +53,16 @@ export const Chat =({roomId, roomInfo, setRoomInfo, setIsPopupJoinRoom})=>{
             console.log(error)
         }
     }
+    function sendMessage(){
+        socket.send(JSON.stringify({message:inputMessage,roomId:roomId}))
+        setInputMessage('')
+    }
+    function handleKeyPress(event){
+        if (event.key === 'Enter') {
+          event.preventDefault()
+          sendMessage()
+        }
+      };
     return (
     <div className='chatFrame'>
         <div className='chatContainer'>
@@ -77,8 +88,11 @@ export const Chat =({roomId, roomInfo, setRoomInfo, setIsPopupJoinRoom})=>{
                 })}
             </div>  
             <div className='chatFooter'>
-                <textarea className='inputMessage' placeholder='Type it here...'></textarea>
-                <div className='sendIconOut'>
+                <textarea className='inputMessage' placeholder='Type it here...' 
+                onChange={(event)=>{setInputMessage(event.target.value)}} 
+                onKeyDown={handleKeyPress}
+                value={inputMessage}></textarea>
+                <div className='sendIconOut' onClick={sendMessage}>
                 &#10148;
                 </div>
             </div>
