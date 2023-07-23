@@ -69,3 +69,15 @@ def user(request):
 def logout(request):
     django_logout(request)
     return HttpResponse()
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+def update_profile(request):
+    firstname = request.data.get('firstname')
+    lastname = request.data.get('lastname')
+    request.user.first_name = firstname
+    request.user.last_name = lastname
+    request.user.save()
+    return JsonResponse({"firstname":request.user.first_name, "lastname":request.user.last_name})
+    
